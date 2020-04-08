@@ -1,0 +1,21 @@
+Homework 1: Fixpoints and grammar filters
+
+My approach to solving each function is as follows:
+subset: For each element in a, I'd check if it was in b. If any element was not, then return false.
+
+equal_sets: I used the fact that if two sets are subsets of each other, they represent the same set.
+
+set_union: I used the fact that duplicates in a list don't affect the set they represent. So I just appended the two sets together
+
+set_intersection: I used List.exists to determine if each element from b existed in a.
+
+set_diff: I used the same idea from set_intersection, but I just checked if List.exists was false instead, filtering out all the elements of b that were present in a.
+
+computed_fixed_point: I did this recursively, using the newly computed f(x) as x for each successive call and returning x when f(x) finally equaled x.
+
+filter_reachable: There were a few main parts in my approach.
+First, I recursively found the reachable nonterminal, starting from our starting nonterminal. I only checked nonterminals since it didn't matter if we couldn't reach a terminal, since rules don't start with terminals. To find the reachable nonterminals, I used the computed_fixed_point function, since once a list returns the same list of nonterminals, we have reached all of the nonterminals that are possible. 
+Once I had all of the reachable nonterminals, I had to extract the symbol value, essentially just removing the N from the front of the entry. To do this, I recursively went through the list of reachable nonterminals, extracting the value using the match with functionality.
+Finally, I filtered out the unreachable rules by seeing checking for each rule if the value was in the list of reachable nonterminals. 
+
+As for my weaknesses, I know my computed_fixed_point function gets stuck in a loop if the function doesn't have a fixed point. However, the spec says it doesn't matter what we do if there is no computed fixed point, so I don't think this is a concern.
